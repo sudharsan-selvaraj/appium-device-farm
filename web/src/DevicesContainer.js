@@ -6,23 +6,26 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Devices from './Devices';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const DevicesContainer = ({ platform }) => {
   const [loading, setLoading] = useState(true);
   const [devices, setDevices] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // eslint-disable-next-line no-undef
     fetch('/sample.json')
       .then((res) => res.json())
       .then(
         (devices) => {
           setLoading(false);
           setDevices(devices);
-        }).catch((_) => {
+        },
+        () => {
           setLoading(false);
           setError(true);
         }
-        );
+      );
   }, []);
 
   if (loading) {
